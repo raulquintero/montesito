@@ -1,73 +1,4 @@
        
-    <div class="container-fluid" id="content">
-       <?php 
-echo $menuleft->show();
- ?>
-
-
-
-
-<!-- Menu LEft END -->
-
-        <div id="main">
-            <div class="container-fluid">
-                <div class="page-header">
-                    <div class="pull-left">
-                        <h1>Dashboard</h1>
-                    </div>
-                    <div class="pull-right">
-                        <ul class="minitiles">
-                            <li class='grey'>
-                                <a href="#">
-                                    <i class="fa fa-cogs"></i>
-                                </a>
-                            </li>
-                            <li class='lightgrey'>
-                                <a href="#">
-                                    <i class="fa fa-globe"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="stats">
-                            <li class='satgreen'>
-                                <i class="fa fa-money"></i>
-                                <div class="details">
-                                    <span class="big">$324,12</span>
-                                    <span>Balance</span>
-                                </div>
-                            </li>
-                            <li class='lightred'>
-                                <i class="fa fa-calendar"></i>
-                                <div class="details">
-                                    <span class="big">February 22, 2013</span>
-                                    <span>Wednesday, 13:56</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                
-
-
-                <div class="breadcrumbs">
-                    <ul>
-                        <li>
-                            <a href="more-login.html">Home</a>
-                            <i class="fa fa-angle-right"></i>
-                        </li>
-                        <li>
-                            <a href="index.html">Dashboard</a>
-                        </li>
-                    </ul>
-                    <div class="close-bread">
-                        <a href="#">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-
-
-
 
 
 
@@ -78,7 +9,7 @@ echo $menuleft->show();
                             <div class="box-title">
                                 <h3>
                                     <i class="fa fa-bar-chart-o"></i>
-                                    Audience Overview
+                                    Ventas Mensuales
                                 </h3>
                                 <div class="actions">
                                     <a href="#" class="btn btn-mini content-refresh">
@@ -97,14 +28,15 @@ echo $menuleft->show();
                                     <div class="top">
                                         <div class="left">
                                             <select name="category" class='chosen-select' data-nosearch="true" style="width:150px;">
-                                                <option value="1">Visits</option>
-                                                <option value="2">New Visits</option>
-                                                <option value="3">Unique Visits</option>
-                                                <option value="4">Pageviews</option>
+                                                <option value="1">Hombre</option>
+                                                <option value="2">Mujer</option>
+                                                <option value="3">Ninos</option>
+                                                <option value="4">Ninas</option>
+                                                <option value="4">Bebes</option>
                                             </select>
                                         </div>
                                         <div class="right">
-                                            8,195
+                                            $12345.00 MX
                                             <span>
                                                 <i class="fa fa-arrow-circle-up"></i>
                                             </span>
@@ -158,7 +90,7 @@ echo $menuleft->show();
                             <div class="box-title">
                                 <h3>
                                     <i class="fa fa-bar-chart-o"></i>
-                                    HDD usage
+                                    Crecimiento
                                 </h3>
                                 <div class="actions">
                                     <a href="#" class="btn btn-mini content-refresh">
@@ -177,14 +109,14 @@ echo $menuleft->show();
                                     <div class="top">
                                         <div class="left">
                                             <select name="category" class='chosen-select' data-nosearch="true" style="width:150px;">
-                                                <option value="1">Today</option>
-                                                <option value="2">Yesterday</option>
-                                                <option value="3">Last week</option>
-                                                <option value="4">Last month</option>
+                                                <option value="1">Mensual</option>
+                                                <option value="2">Trimestral</option>
+                                                <option value="3">Semestre</option>
+                                                <option value="4">Anual</option>
                                             </select>
                                         </div>
                                         <div class="right">
-                                            50%
+                                            -5%
                                             <span>
                                                 <i class="fa fa-arrow-circle-right"></i>
                                             </span>
@@ -784,7 +716,4 @@ echo $menuleft->show();
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
+           

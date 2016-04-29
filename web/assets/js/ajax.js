@@ -1,5 +1,5 @@
 
-function showProduct(str,registro)
+function showModal(str,registro)
 {
 if (str=="")
   {

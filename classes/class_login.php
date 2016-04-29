@@ -167,11 +167,11 @@ class Login
 
      */
 
-    static public function setEscape($text_to_escape)
+    static public function setEscape1($text_to_escape)
 
     {
 
-        if(!get_magic_quotes_gpc()) $text_to_escape=mysql_real_escape_string($text_to_escape);
+        if(!get_magic_quotes_gpc()) $text_to_escape=$this->database->filter($text_to_escape);
 
         return $text_to_escape;
 
@@ -194,6 +194,14 @@ class Login
     {
 
         if(is_bool($login_show_message)) $this->showMessage=$login_show_message;
+
+    }
+
+    public function setDatabaseUsersTable($table)
+
+    {
+
+         $this->database_user_table=$table;
 
     }
 
@@ -250,35 +258,30 @@ class Login
 
 
         if(!$this->databaseUsersTable) $this->getMessage('Users table in the database is not specified. Please specify it before any other operation using the method setDatabaseUsersTable();', '', '', 'true');
-
+        echo "tabla: ".$this->databaseUsersTable;
         //if(!$this->getLoginSession())
 
         {
             $user_name=isset($_POST['user_name']) ? $_POST['user_name'] : NULL;
             $user_pass=isset($_POST['user_pass']) ? $_POST['user_pass'] : NULL;
-            $user_name=$this->setEscape($user_name);
+            $user_name=$user_name;
 
             $user_pass=$this->setCrypt($user_pass);
 
             //echo  "SELECT * FROM"." ".$this->databaseUsersTable." "."WHERE username='$user_name' AND pass='$user_pass'";
 
-            $serial=file (__DIR__."/../config/terminal.txt");
-            $query_serial = "SELECT serial FROM terminal where serial='".$this->limpiar($serial[0])."' 
-                AND ip='".$_SERVER['REMOTE_ADDR']."' AND enabled=1 limit 1";
-            list($serial_db) = $this->database->get_row($query_serial);
-
-                $_SESSION['serial'] = $serial_db;
+            
+           
 
 
-            $result="SELECT person.person_id,username,name,firstname,role,homepage,activo 
+            echo $result="SELECT perlogin_id,person.person_id,username,name,firstname,role,homepage,activo 
                     FROM perlogin, person 
                     WHERE username='$user_name' AND password='$user_pass' AND perlogin.person_id=person.person_id";
-           list($person_id,$username,$name,$firstname,
+           list($perlogin_id,$person_id,$username,$name,$firstname,
                 $role,$homepage,$activo) = $this->database->get_row($result);
             //echo $serial_db;
             if ($activo)
             {
-                
                 $_SESSION['person_id']=$person_id;
                 $_SESSION['username']=$username;
                 $_SESSION['name']=$name.' '.$firstname;
@@ -286,6 +289,7 @@ class Login
                 $_SESSION['homepage']=$homepage;
                 // $_SESSION['store_id']=1;
 
+                
                 // $_SESSION['sucursal']="Carranza";
 
                 $_SESSION['user_active']=$activo;
@@ -365,6 +369,7 @@ public function limpiar  ($str){
             unset($_SESSION['cupon']);
 
             unset($_SESSION['serial']);
+            unset($_SESSION['register']);
 
         }
         return $_SESSION['user_active'];
@@ -500,7 +505,20 @@ public function limpiar  ($str){
 
     }
 
-    
+    public function getTerminal(){
+      $key = $_SERVER['HTTP_USER_AGENT'];
+        $array=explode("/", $key);
+        $total=count($array);
+        $array1['sucursal']=$array[$total-2];
+        $array1['terminal']=$array[$total-1];
+        return $array1;
+    }
+
+    public function setRegister(){
+
+            $_SESSION['register']=TRUE;
+            $_SESSION['homepage']="/configuracion/terminales";
+    }
 
 }
 

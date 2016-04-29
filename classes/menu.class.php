@@ -183,7 +183,7 @@ public function showCategory($parent_id=0,$level=0) {
 
         	<td>".$sub['privilegio_id']."</td>
             <td>
-            <a href=\"#modal-alert\" data-toggle=\"modal\"  onclick='showProduct(\"editcategory\",".$sub['menu_id'].")'><button class=\"btn btn-success\">Editar <!--i class=\"icon-plus icon-white\"></i--></button></a></td>
+            <a href=\"#modal-alert\" data-toggle=\"modal\"  onclick='showModal(\"editcategory\",".$sub['menu_id'].")'><button class=\"btn btn-success\">Editar <!--i class=\"icon-plus icon-white\"></i--></button></a></td>
             ";
 
             if (!$n_subs)
@@ -237,7 +237,7 @@ public function showAddListCategory($parent_id,$level=0,$menu_id=0) {
         else{
         
             if ($sub['menu_id']==$menu_id) $selected=" selected "; else $selected = NULL;
-                    echo "<option value=".$sub['menu_id']." $selected>$tab".ucfirst($sub['menu'])." $menuid</option>";
+                    echo "<option value=".$sub['menu_id']." $selected>$tab".ucfirst($sub['menu'])." $menu_id</option>";
         }
         $this->showAddListCategory($sub['menu_id'],$level+1,$menu_id);
     }
@@ -371,12 +371,13 @@ public function getParentId($menu_id){
 *  getParentId method
 
 */
-public function editCategory($parent_id,$menu_name,$path_option,$menu_id){
+public function editCategory($parent_id,$menu_name,$path_option,$menu_id,$position){
 
                     $update = array(
                         'parent_id' => $parent_id,
                         'menu' => strtolower($menu_name),
-                        'path_option' => $path_option
+                        'path_option' => $path_option,
+                        'position' => $position
                     );
                     //Add the WHERE clauses
                     $where_clause = array(

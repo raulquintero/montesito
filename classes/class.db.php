@@ -88,8 +88,8 @@ class DB
     
     public function __construct()
     {
-        mb_internal_encoding( 'UTF-8' );
-        mb_regex_encoding( 'UTF-8' );
+        //mb_internal_encoding( 'UTF-8' );
+        //mb_regex_encoding( 'UTF-8' );
         mysqli_report( MYSQLI_REPORT_STRICT );
         try {
             $this->link = new mysqli( DB_HOST, DB_USER, DB_PASS, DB_NAME );

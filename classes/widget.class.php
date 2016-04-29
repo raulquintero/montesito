@@ -79,8 +79,9 @@ echo $calendar;
 }
 
 
-public function showBreadCrumbers(){
+public function showBreadCrumbers($topico=null){
 
+$title=explode("/",$topico);
 $breadcrumber="
 <div class=\"breadcrumbs\">
                     <ul>
@@ -89,11 +90,11 @@ $breadcrumber="
                             <i class=\"fa fa-angle-right\"></i>
                         </li>
                         <li>
-                            <a href=\"more-files.html\">Pages</a>
+                            <a href=\"more-files.html\">".$title[1]."</a>
                             <i class=\"fa fa-angle-right\"></i>
                         </li>
                         <li>
-                            <a href=\"more-blank.html\">SubMenu</a>
+                            <a href=\"more-blank.html\">".$title[2]."</a>
                         </li>
                     </ul>
                     <div class=\"close-bread\">

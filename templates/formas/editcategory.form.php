@@ -1,8 +1,8 @@
 <?php 
 
-        $query="SELECT parent_id, menu, path_option From menu WHERE menu_id='$menu_id'";
+        $query="SELECT parent_id, menu, path_option,position From menu WHERE menu_id='$menu_id'";
 
-        list($parent_id,$menu_name,$menu_ruta) = $database->get_row( $query );
+        list($parent_id,$menu_name,$menu_ruta,$position) = $database->get_row( $query );
 
 
 
@@ -56,6 +56,13 @@
                             <label class="control-label" for="focusedInput">Ruta</label>
                             <div class="controls">
                                 <input class="input-xlarge focused" id="focusedInput" type="text" name="path_option" value="<?php echo $menu_ruta ?>">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="focusedInput">Posicion</label>
+                            <div class="controls">
+                                <input class="input-xlarge focused" id="focusedInput" type="text" name="position" value="<?php echo $position ?>">
                             </div>
                         </div>
 

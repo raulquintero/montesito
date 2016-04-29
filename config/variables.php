@@ -13,6 +13,8 @@ $action = isset ($_GET['action']) ? clear_url($_GET['action']) : NULL;
 
 $uri  = isset ($uri ) ? $uri : "NONE";	
 $mensaje  = isset ($mensaje ) ? $mensaje : NULL;	
+$register  = isset ($register ) ? $register : FALSE;	
+$register_form  = isset ($register_form ) ? $register_form : FALSE;	
 $category_id  = isset ($_GET['category_id'] ) ? $_GET['category_id'] : NULL;	
 
 
@@ -34,13 +36,14 @@ if ($parentid_post==NULL ) $parent_id=$parentid_get;  else  $parent_id=$parentid
 
 $menu_name  = isset ($_POST['menu_name'] ) ? $_POST['menu_name']  : NULL;	
 $path_option  = isset ($_POST['path_option'] ) ? $_POST['path_option']  : NULL;	
+$position  = isset ($_POST['position'] ) ? $_POST['position']  : NULL;	
 // $parent_id  = isset ($_POST['parent_id'] ) ? $_POST['parent_id']  : NULL;	
 
 
 // guarda en que menu principal te encuentras para marcarlo como activo en el menu de arriba
 $check_ruta=$path;
-
-
+$terminal_id = $terminal->getTerminal();
+$sucursal= $terminal_id['sucursal'];
 $location=NULL;
 
 

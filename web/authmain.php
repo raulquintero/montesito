@@ -7,8 +7,8 @@ require_once(__DIR__ . '/../classes/class_login.php');
 
 //DB_HOST, DB_USER, DB_PASS, DB_NAME
 // You must establish a connection to the mysql database before using this class
-$database_connection=mysql_connect(DB_HOST, DB_USER, DB_PASS);
-$database_selection=mysql_select_db( DB_NAME, $database_connection);
+// $database_connection=mysql_connect(DB_HOST, DB_USER, DB_PASS);
+// $database_selection=mysql_select_db( DB_NAME, $database_connection);
 
 $database = new DB();
 
@@ -31,6 +31,9 @@ if(isset($_GET['module']) && ($_GET['module']=="login"))
     # Setting login session:
 
     $login->setLoginSession();
+
+    if ($_POST['register'])
+        $login->setRegister();
     
     # Showing login informations if login is done:
     

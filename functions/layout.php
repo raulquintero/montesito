@@ -1,7 +1,8 @@
 <?php
 
-function layout($login,$serial="Sin Configurar"){
+function layout($login){
 $name =$login->getName();
+$terminal_id=$login->getTerminal();
 $loadscript="bottom_ticket()";
  $loadscript="onload=\"$loadscript\"";
 $script_ticket = "
@@ -19,6 +20,8 @@ objDiv.scrollTop = objDiv.scrollHeight;
 
 
     ";
+
+
 $layout['top'] ="
 <!doctype html>
 <html>
@@ -601,7 +604,7 @@ $layout['down_menu'] = "
 
             <div class=\"user\">
                 <ul class=\"icon-nav\">
-                <li><span style=\"background:black;display:block;border-right:1px solid white;border-left:1px solid white; color:white; text-align:center;padding:2px\">&nbsp; <b>89092</b> &nbsp;<br> <b>01</b></span>
+                <li><span style=\"background:black;display:block;border-right:1px solid white;border-left:1px solid white; color:white; text-align:center;padding:2px\">&nbsp; <b>".$terminal_id['sucursal']."</b> &nbsp;<br> <b>".$terminal_id['terminal']."</b></span>
                 </li>
                     <!--<li class='dropdown'>
                         <a href=\"#\" class='dropdown-toggle' data-toggle=\"dropdown\">

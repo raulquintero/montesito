@@ -1,8 +1,10 @@
 <?php 
 //	function funcion_respuesta(){  al final del archivo solo para pruebas
 
+
 $path = "/".$path;
 $path .= isset($sub) ? '/'.$sub : '';
+$topico=$path;
 $uri = getRuta($path);
 // $uri = $_SERVER['REQUEST_URI'];
 
@@ -21,7 +23,7 @@ switch ($path) {
 					echo $location="Location: /mantenimiento?sub=menu&m=$m&menu_id=$parent_id";
 					break;
 				case 'edit':
-					$m = $menu->editCategory($parent_id,$menu_name,$path_option,$menu_id);
+					$m = $menu->editCategory($parent_id,$menu_name,$path_option,$menu_id,$position);
 					echo $location="Location: /mantenimiento?sub=menu&m=$m&menu_id=$parent_id";
 					break;
 

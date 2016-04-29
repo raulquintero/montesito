@@ -5,7 +5,7 @@
 							<div class="box-title">
 								<h3>
 											<i class="glyphicon-display"></i></li>
-									Terminales
+									Detalles de Terminal 01
 								</h3>
 							</div>
 							<div class="box-content nopadding">

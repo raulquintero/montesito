@@ -1,6 +1,7 @@
  <?php
   
 
+
   $loginDialog = "<!doctype html>
 <html>
 
@@ -81,7 +82,7 @@
             <!--<input type=\"checkbox\" name=\"remember\" class='icheck-me' data-skin=\"square\" data-color=\"blue\" id=\"remember\">
             <label for=\"remember\">Remember me</label>-->
           </div>
-          <input type=\"hidden\" name=\"signin\" value=\"true\">
+          <input type=\"hidden\" name=\"signin\" value=\"true\">".$register_form."
           <input type=\"submit\" value=\"Entrar\" class='btn btn-primary'>
         </div>
       </form>
@@ -166,18 +167,18 @@ $configurarTerminal ="
     </h1>
     <div class=\"login-body\">
     <h4><br>&nbsp;&nbsp;&nbsp;Registre Terminal</h4>
-      <h2>Key: ".strtoupper(getKey())."</h2>
+      <h2>Key: ".strtoupper($terminal->getSerial())."</h2>
       <form method='POST' class='form-validate' id=\"test\"  action=\"configura.php?module=configurar\">
         <div class=\"form-group\">
           <!--<div class=\"email controls\">
             <input type=\"text\" name=\"user_name\" id=\"serial\"  placeholder=\"Introduzca Serial\" 
               class='form-control' data-rule-required=\"true\" data-rule-email=\"false\" 
-              value=\"".getKey()." \">
+              value=\"".$terminal->getSerial()." \">
           </div>-->
         </div>
         <div class=\"submit\">
         <div class=\"remember\">
-            <label for=\"remember\">IP: ".$_SERVER['REMOTE_ADDR']."<br>".$_SERVER['HTTP_USER_AGENT']."</label>
+            <label for=\"remember\">IP: ".$_SERVER['REMOTE_ADDR']."<br>".$terminal_id['sucursal']."<br>".$terminal_id['terminal']."</label>
           </div>
         <input type=\"hidden\" name=\"terminal\" value=\"true\">
           <!-- <input type=\"submit\" value=\"Grabar\" class='btn btn-primary'> -->

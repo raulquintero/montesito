@@ -33,7 +33,7 @@
                                       <div class="btn-group">
 
 
-                                         <a href="#modal-alert" data-toggle="modal" onclick='showProduct("addcategory",<?php echo $menu_id?>)'><button class="btn btn-success">Agregar Categoria <i class="icon-plus icon-white"></i></button></a>
+                                         <a href="#modal-alert" data-toggle="modal" onclick='showModal("addcategory",<?php echo $menu_id?>)'><button class="btn btn-success">Agregar Categoria <i class="icon-plus icon-white"></i></button></a>
                                       </div>
                                       <div class="btn-group pull-right">
                                          <button data-toggle="dropdown" class="btn dropdown-toggle">Tools <span class="caret"></span></button>

@@ -6,8 +6,14 @@ $path = "/".$path;
 $path .= isset($sub) ? '/'.$sub : '';
 $topico=$path;
 $uri = getRuta($path);
+$uri = DIR_TEMPLATES.$uri;
+
 // $uri = $_SERVER['REQUEST_URI'];
 
+if (!in_array(getPrivilegioId($topico,$database), $_SESSION['privilegios']) && $topico<>'/logout' && $topico<>'/'){
+	  $uri=DIR_TEMPLATES .'/error/sinprivilegios.inc.php';
+	}
+	else
 switch ($path) {
 	//responde con un json como salida
 	 case '/api/show': 	$respuesta = funcion_respuesta(); $salida->showJson($respuesta); exit(); break;	
@@ -28,11 +34,15 @@ switch ($path) {
 					break;
 
 				case 'delete':
-						echo "delete";
 						if ( $menu_id){
 							$m=$menu->deleteCategory($menu_id);
 							echo $location="Location: /mantenimiento?sub=menu&m=$m&menu_id=$parent_id";
-							
+						}
+							break;
+				case 'remove':
+						if ( $menu_id){
+							$m=$menu->removeCategory($menu_id);
+							echo $location="Location: /mantenimiento?sub=menu&m=$m&menu_id=$parent_id";
 						}
 					break;
 				
@@ -86,8 +96,8 @@ switch ($path) {
 
 $breadcrumb  = $path;
 $path=0;
-$uri = DIR_TEMPLATES.$uri;
-$existe = file_exists ( $uri );
+$var1=$uri;
+$existe = file_exists($uri);
  if (!$existe)	$uri= DIR_TEMPLATES .'/error/pagenotfound.inc.php';
 
 
@@ -104,6 +114,24 @@ function getRuta($path){
 		else
 			$archivo .= '/'.$path[1];
  		$archivo.=".inc.php";
+	}
+
+	if ($archivo) 
+		return "/".$archivo;
+		else return "/";
+}
+
+function getPrivilegioId($path,$database){
+	$archivo = NULL;
+	$path = explode("/", $path);
+	//print_r ($path);
+	if (isset($path[1])){
+		$archivo=$path[1];
+		if(isset($path[2]))
+			$archivo .= '?sub='.$path[2];
+	$query="SELECT privilegio_id from menu where path_option='/$archivo'";
+	list($privilegio_id) = $database->get_row($query);
+		return $privilegio_id;
 	}
 
 	if ($archivo) 

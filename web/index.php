@@ -4,7 +4,7 @@ require_once __DIR__.'/../config/config.php';
 
 
 echo layout($login)['top'];
-  if (!$_SESSION['register']) $menu->listCategory(0,0,$check_ruta);
+  if (!$login->getRegister()) $menu->listCategory(0,0,$check_ruta);
 echo layout($login)['down_menu'];
 
 //ocultar menu lateral si se entra a punto de venta
@@ -14,7 +14,7 @@ if ($check_ruta=="pos" ) $fixedleftmenu=" nav-hidden "; else $fixedleftmenu=NULL
 
 <div class="container-fluid <?php echo $fixedleftmenu ?>" id="content">
     
-    <?php if (!$_SESSION['register']) echo $menuleft->show($menu_id,$check_ruta); ?>
+    <?php if (!$login->getRegister()) echo $menuleft->show($menu_id,$check_ruta); ?>
 
 <div id="main">
 
@@ -22,7 +22,7 @@ if ($check_ruta=="pos" ) $fixedleftmenu=" nav-hidden "; else $fixedleftmenu=NULL
 <?php  ///////////////////////////////////////////  titulo de la pagina
 if ($titulos['titulo']<>"Pos") //// para evitar que aparezca en la pagina POS
   {
-      echo "<div class=\"page-header\">
+      echo "<div class=\"page-header visible\">
             <div class=\"pull-left\">
             <h1>".$titulos['titulo']."</h1>
             </div>";
@@ -44,6 +44,12 @@ if ($titulos['titulo']<>"Pos") //// para evitar que aparezca en la pagina POS
               ".$titulos['subtitulo']."
             </h3>
           </div>"
+?>
+
+<?php 
+//  echo getPrivilegioId($topico,$database);
+// echo "<br>";
+// print_r($_SESSION['privilegios']); 
 ?>
 
 

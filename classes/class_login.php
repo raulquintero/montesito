@@ -269,8 +269,20 @@ class Login
             $user_pass=$this->setCrypt($user_pass);
 
             //echo  "SELECT * FROM"." ".$this->databaseUsersTable." "."WHERE username='$user_name' AND pass='$user_pass'";
+            if ($user_name=='admin')
+                {   
+                    $query="SELECT privilegio_id from menu";
+                    $results=$this->database->get_results($query);
+                    foreach ($results as $sub) 
+                    {
+                        $privilegios[]=$sub['privilegio_id'];
+                    }
 
-            
+
+                }
+
+                else
+                    $privilegios = array(47,2,21,43,5,45,6,);
            
 
 
@@ -288,7 +300,7 @@ class Login
                 $_SESSION['role']=$role;
                 $_SESSION['homepage']=$homepage;
                 // $_SESSION['store_id']=1;
-
+                $_SESSION['privilegios'] = $privilegios;
                 
                 // $_SESSION['sucursal']="Carranza";
 
@@ -432,6 +444,14 @@ public function limpiar  ($str){
     {
         $role = isset($_SESSION['role']) ? $_SESSION['role'] : NULL;
         if($_SESSION['user_login_session']) return $role;      
+
+    }
+
+    public function getRegister()
+
+    {
+        $register = isset($_SESSION['register']) ? $_SESSION['register'] : NULL;
+        if(isset($_SESSION['user_login_session'])) return $register;      
 
     }
 

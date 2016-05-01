@@ -9,6 +9,7 @@
       echo "                    <ul class=\"nav nav-list bs-docs-sidenav nav-collapse collapse\">";
       echo "<li class=\"active\"><a href=\"/mantenimiento?sub=menu\">Menu Principal $fn</a></li>";
       $menu->showListCategory(0);
+
       echo "</ul>";
     ?>
 		</div>
@@ -23,14 +24,14 @@
                         <div class="block">
                            <br><br>
 
-
+<?php print_r($_SESSION['privilegios']) ?>
 
 
                             <div class="block-content collapse in">
                             	
                                 <div class="span12">
-                                	<div class="table-toolbar">
-                                      <div class="btn-group">
+                                	<div class="table-toolbar hidden-print">
+                                      <div class="btn-group ">
 
 
                                          <a href="#modal-alert" data-toggle="modal" onclick='showModal("addcategory",<?php echo $menu_id?>)'><button class="btn btn-success">Agregar Categoria <i class="icon-plus icon-white"></i></button></a>
@@ -47,12 +48,12 @@
   									<table class="table table-striped">
 						              <thead>
 						                <tr>
-						                  <th>Menu_id</th>
+						                  <th>Menu_id ></th>
 						                  <th>Categoria</th>
 						                  <th>Ruta</th>
                               <th>Posicion</th>
                                           <th>Privilegio_id</th>
-						                  <th colspan=2>Opciones</th>
+						                  <th colspan=2><span class='hidden-print'>Opciones</span></th>
 						                </tr>
 						              </thead>
 						              <tbody>
@@ -67,6 +68,54 @@
                     </div>
 
                  </div>
+
+
+
+
+
+
+
+
+
+ <div class="span12" id="content">
+
+                    
+                    <div class="row-fluid">
+                        <!-- block -->
+                        <div class="block">
+                           <br><br>
+
+
+
+
+                            <div class="block-content collapse in">
+                              
+                                <div class="span12">
+                                  
+                    <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Menu_id</th>
+                              <th>Categoria</th>
+                              <th>Ruta</th>
+                              <th>Posicion</th>
+                                          <th>Privilegio_id</th>
+                              <th colspan=2><span class='hidden-print'>Opciones</span></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                                  <?php $menu->showCategoryDeleted($menu_id);?>
+
+                          </tbody>
+                        </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /block -->
+                    </div>
+
+                 </div>
+
 
 
 

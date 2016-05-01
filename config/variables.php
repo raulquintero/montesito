@@ -53,7 +53,7 @@ $titulos=array(
 	'subtitulo'=>ucfirst($sub)
 	);
 
-
+$_SESSION['privilegios'] = array(47,2,21,43,5,45,6);
 
 
 

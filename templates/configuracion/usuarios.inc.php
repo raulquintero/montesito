@@ -33,7 +33,7 @@
 						<th>Nombres</th>
 						<th>Role</th>
 
-						<th class='hidden-350'>Empleado desde</th>
+						<th class='hidden-350'>Homepage</th>
 						<!-- <th class='hidden-1024'>Engine version</th>
 						<th class='hidden-480'>CSS grade</th> -->
 						<th class='hidden-480 hidden-print'>Options</th> 
@@ -45,7 +45,7 @@
 						<td>Quintero Cifuentes</td>
 						<td>Raul Alberto</td>
 						<td>root</td>
-						<td class='hidden-350'>23-Jun-2014</td>
+						<td class='hidden-350'>/recepcion/inicio</td>
 						<!-- <td class='hidden-1024'>4</td>
 						<td class='hidden-480'>X</td> -->
 						<td class='hidden-480 hidden-print'>

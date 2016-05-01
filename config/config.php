@@ -61,7 +61,7 @@ $terminal->setdatabase($database);
 
 require_once( DIR_BASE.'/functions/mensajes.php');
 require_once( DIR_BASE.'/functions/layout.php');
-if ($register || $_SESSION['register'])
+if ($register || $login->getRegister())
 	require_once( DIR_BASE.'/config/security_register.php');
 else
 	require_once( DIR_BASE.'/config/security.php');

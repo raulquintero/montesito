@@ -32,7 +32,7 @@ if(isset($_GET['module']) && ($_GET['module']=="login"))
 
     $login->setLoginSession();
 
-    if ($_POST['register'])
+    if (isset($_POST['register']))
         $login->setRegister();
     
     # Showing login informations if login is done:

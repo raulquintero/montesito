@@ -55,13 +55,16 @@ public function listCategory($parent_id,$level=0,$check_ruta,$ul=0) {
 	//$level=0;
     // echo "<ul class=\"main-nav\">\n";
 
-    $query = "SELECT menu, menu_id , parent_id, path_option FROM menu  WHERE  parent_id='$parent_id' ORDER BY  position ASC";
+    $query = "SELECT menu, menu_id , parent_id, path_option,privilegio_id FROM menu  WHERE  parent_id='$parent_id' AND deleted=FALSE ORDER BY  position ASC";
     // $res = mysql_query($query) or die($query);
     $subs = $this->database->get_results($query);
     $cuantos=count ($subs);
     if($cuantos == 0) return;
     $cuantos_subs=0;
     foreach ($subs as $sub) {
+if (in_array($sub['privilegio_id'], $_SESSION['privilegios']))
+    {
+     
         if (strtoupper($check_ruta)==strtoupper($sub['menu']))
                 $active="active"; else $active = NULL;
             
@@ -101,7 +104,7 @@ public function listCategory($parent_id,$level=0,$check_ruta,$ul=0) {
                         echo "<li><a tabindex=\"-1\" href=\"".$sub['path_option']."\"><b>".ucfirst($sub['menu'])."</b> </a></li>";
             }
         }
-            
+    }        
 
         $this->listCategory($sub['menu_id'],$level+1,$check_ruta,$ul=0);
         	if ($cuantos_subs>0)
@@ -114,7 +117,7 @@ public function listCategory($parent_id,$level=0,$check_ruta,$ul=0) {
 
 public function showListCategory($parent_id,$level=0) {
 	$level=0;
-    $query = "SELECT menu, menu_id , parent_id, path_option FROM menu  WHERE  parent_id=".$parent_id;
+    $query = "SELECT menu, menu_id , parent_id, path_option FROM menu  WHERE  deleted=FALSE AND parent_id=".$parent_id;
     // $res = mysql_query($query) or die($query);
     $subs = $this->database->get_results($query);
     $cuantos=count ($subs);
@@ -165,7 +168,7 @@ public function showListCategory($parent_id,$level=0) {
 public function showCategory($parent_id=0,$level=0) {
     echo "<tr>";
     $parent_id=isset($parent_id) ? $parent_id :0;
-    $query = "SELECT menu, menu_id , parent_id, path_option,position,privilegio_id FROM menu  WHERE  parent_id=".$parent_id." ORDER BY position ASC";
+    $query = "SELECT menu, menu_id , parent_id, path_option,position,privilegio_id FROM menu  WHERE  parent_id=".$parent_id." AND deleted=FALSE ORDER BY position ASC";
     // $res = mysql_query($query) or die($query);
     $subs = $this->database->get_results($query);
     $cuantos=count ($subs);
@@ -174,7 +177,7 @@ public function showCategory($parent_id=0,$level=0) {
         $query2="SELECT menu_id from menu where parent_id=".$sub['menu_id'];
         $n_subs = $this->database->get_results($query2);
     	$n_subs = count($n_subs);
-        	echo "<td>".$sub['menu_id']."</td><td><a href='/mantenimiento?sub=menu&menu_id=".$sub['menu_id']."'>".$sub['menu']."</a></td>";
+        	echo "<td>".$sub['menu_id']."</td><td><span class='visible-print'>".$sub['menu']."</span><a class='hidden-print' href='/mantenimiento?sub=menu&menu_id=".$sub['menu_id']."'>".$sub['menu']."</a></td>";
             if ($n_subs)    
                 echo "<td> <i class=\"glyphicon-list\"></i> SubMenu </td>";
                 else echo "<td>".$sub['path_option']."</td>";
@@ -183,18 +186,18 @@ public function showCategory($parent_id=0,$level=0) {
 
         	<td>".$sub['privilegio_id']."</td>
             <td>
-            <a href=\"#modal-alert\" data-toggle=\"modal\"  onclick='showModal(\"editcategory\",".$sub['menu_id'].")'><button class=\"btn btn-success\">Editar <!--i class=\"icon-plus icon-white\"></i--></button></a></td>
+            <a class='hidden-print' href=\"#modal-alert\" data-toggle=\"modal\"  onclick='showModal(\"editcategory\",".$sub['menu_id'].")'><button class=\"btn btn-success\">Editar <!--i class=\"icon-plus icon-white\"></i--></button></a></td>
             ";
 
             if (!$n_subs)
-            echo "<td>
-        		<a class=hidden-print href='/mantenimiento?sub=menu&menu_id=".$sub['menu_id']."&fn=delete&parent_id=$parent_id' >
-                <button class=\"btn btn-warning \">Eliminar<!--i class=\"icon-plus icon-white\"></i--></button></a>
+            echo "<td class='hidden-print'>
+        		<a class='hidden-print' href='/mantenimiento?sub=menu&menu_id=".$sub['menu_id']."&fn=delete&parent_id=$parent_id' >
+                <button class=\"btn btn-warning\">Eliminar<!--i class=\"icon-plus icon-white\"></i--></button></a>
         	 	</td>
         	";
             else
                 echo "<td>
-                <button disabled class=\"btn btn-warning \">Eliminar<!--i class=\"icon-plus icon-white\"></i--></button>
+                <button disabled class=\"btn btn-warning hidden-print\">Eliminar<!--i class=\"icon-plus icon-white\"></i--></button>
                 </td>
             ";
         		
@@ -209,9 +212,59 @@ public function showCategory($parent_id=0,$level=0) {
 
 
 
+
+public function showCategoryDeleted($parent_id=0,$level=0) {
+    echo "<tr>";
+    $parent_id=isset($parent_id) ? $parent_id :0;
+    $query = "SELECT menu, menu_id , parent_id, path_option,position,privilegio_id FROM menu  WHERE  parent_id=".$parent_id." AND deleted=TRUE ORDER BY position ASC";
+    // $res = mysql_query($query) or die($query);
+    $subs = $this->database->get_results($query);
+    $cuantos=count ($subs);
+    if($cuantos == 0) return;
+    foreach ($subs as $sub) {
+        $query2="SELECT menu_id from menu where parent_id=".$sub['menu_id'];
+        $n_subs = $this->database->get_results($query2);
+        $n_subs = count($n_subs);
+            echo "<td>".$sub['menu_id']."</td><td><a href='/mantenimiento?sub=menu&menu_id=".$sub['menu_id']."'>".$sub['menu']."</a></td>";
+            if ($n_subs)    
+                echo "<td> <i class=\"glyphicon-list\"></i> SubMenu </td>";
+                else echo "<td>".$sub['path_option']."</td>";
+
+            echo "<td>".$sub['position']."</td>
+
+            <td>".$sub['privilegio_id']."</td>
+            <td>
+            <a href=\"#modal-alert\" data-toggle=\"modal\"  onclick='showModal(\"editcategory\",".$sub['menu_id'].")'><button class=\"btn btn-success\">Restaurar <!--i class=\"icon-plus icon-white\"></i--></button></a></td>
+            ";
+
+            if (!$n_subs)
+            echo "<td>
+                <a class=hidden-print href='/mantenimiento?sub=menu&menu_id=".$sub['menu_id']."&fn=remove&parent_id=$parent_id' >
+                <button class=\"btn btn-warning \">Remover<!--i class=\"icon-plus icon-white\"></i--></button></a>
+                </td>
+            ";
+            else
+                echo "<td>
+                <button disabled class=\"btn btn-warning \">Remover<!--i class=\"icon-plus icon-white\"></i--></button>
+                </td>
+            ";
+                
+        echo '</tr>';
+
+
+    }
+  
+    
+}
+
+
+
+
+
+
 public function showAddListCategory($parent_id,$level=0,$menu_id=0) {
     echo "menu_id:".$menu_id;
-    $query = "SELECT menu, menu_id , parent_id, path_option FROM menu  WHERE  parent_id=".$parent_id;
+    $query = "SELECT menu, menu_id , parent_id, path_option FROM menu  WHERE   deleted=FALSE AND parent_id=".$parent_id;
     // $res = mysql_query($query) or die($query);
     $subs = $this->database->get_results($query);
     $cuantos=count ($subs);
@@ -250,7 +303,7 @@ public function showAddListCategory($parent_id,$level=0,$menu_id=0) {
 public function showSecurityListCategory($parent_id,$level=0,$ul1=NULL,$ul2=null,$role_id=1) {
     //$level=0;
 
-    $query = "SELECT menu, menu_id FROM menu  WHERE  parent_id=".$parent_id." ORDER BY position";
+    $query = "SELECT menu, menu_id FROM menu  WHERE  deleted=FALSE AND parent_id=".$parent_id." ORDER BY position";
     // $res = mysql_query($query) or die($query);
     $subs = $this->database->get_results($query);
     $cuantos=count ($subs);
@@ -395,14 +448,15 @@ public function editCategory($parent_id,$menu_name,$path_option,$menu_id,$positi
 
 public function insertCategory($parent_id,$menu_name,$path_option){
 
-            $query = "SELECT privilegio_id from menu ORDER BY privilegio_id DESC limit 1";
+            echo $query = "SELECT privilegio_id from menu ORDER BY privilegio_id DESC limit 1";
             list($lastPrivilegio_id)= $this->database->get_row($query);
                     $names = array(
                         'position' => 0,
                         'menu' => strtolower($menu_name),
                         'path_option' => $path_option,
                         'parent_id' =>  $parent_id,
-                        'privilegio_id' => $lastPrivilegio_id+1
+                        'privilegio_id' => $lastPrivilegio_id+1,
+                        'deleted' => 0
                         );
                         
 
@@ -417,15 +471,37 @@ public function insertCategory($parent_id,$menu_name,$path_option){
 public function deleteCategory($menu_id){
 
     //Run a query to delete rows from table where id = 3 and name = Awesome, LIMIT 1
-    $delete = array(
-        'menu_id' => $menu_id
-    );
-    $deleted = $this->database->delete( 'menu', $delete, 1 );
+    // $delete = array(
+    //     'menu_id' => $menu_id
+    // );
+    // $deleted = $this->database->delete( 'menu', $delete, 1 );
+
+
+
+    $update = array(
+            'deleted' => TRUE
+            );
+            //Add the WHERE clauses
+            $where_clause = array(
+                'menu_id' => $menu_id
+            );
+            $updated = $this->database->update( 'menu', $update, $where_clause, 1 );
+
+
+
     return $m=1;
 }
 
 
 
+public function removeCategory($menu_id){
+
+    //Run a query to delete rows from table where id = 3 and name = Awesome, LIMIT 1
+    $delete = array(
+        'menu_id' => $menu_id
+    );
+    $deleted = $this->database->delete( 'menu', $delete, 1 );
+}
 
 
 

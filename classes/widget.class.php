@@ -33,8 +33,8 @@ class Widget
 
 public function showFecha() {
 
-
-
+$fecha_hoy=date("d F Y");
+$day = date("l");
 
 $fecha = "
 <div class=\"pull-right\">
@@ -45,8 +45,8 @@ $fecha = "
                 <i class=\"fa fa-calendar\"></i>
 
                 <div class=\"details\">
-                    <span class=\"big\">February 22, 2013</span>
-                    <span>Wednesday, <span id=\"txt\"></span></span>
+                    <span class=\"big\">$fecha_hoy</span>
+                    <span>$day, <span id=\"txt\"></span></span>
                     
                 </div>
             </li>
@@ -83,7 +83,7 @@ public function showBreadCrumbers($topico=null){
 
 $title=explode("/",$topico);
 $breadcrumber="
-<div class=\"breadcrumbs\">
+    <div class=\"breadcrumbs  \">
                     <ul>
                         <li>
                             <a href=\"more-login.html\">Home</a>
@@ -102,7 +102,7 @@ $breadcrumber="
                             <i class=\"fa fa-times\"></i>
                         </a>
                     </div>
-                </div>
+    </div>
 ";
 
     echo $breadcrumber;

@@ -47,6 +47,7 @@ if ($titulos['titulo']<>"Pos") //// para evitar que aparezca en la pagina POS
 ?>
 
 <?php 
+//$menu->setPrivilegio();
 //  echo getPrivilegioId($topico,$database);
 // echo "<br>";
 // print_r($_SESSION['privilegios']); 
@@ -61,6 +62,8 @@ if ($titulos['titulo']<>"Pos") //// para evitar que aparezca en la pagina POS
 
 
 <?php //////////////////////////////////////////     checa si existe el archivo y lo incluye para responderle al cleinte
+
+//print_r($_SESSION['privilegios']);
 if (is_file($uri))
     require_once($uri);
 else

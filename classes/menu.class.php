@@ -234,7 +234,7 @@ public function showCategoryDeleted($parent_id=0,$level=0) {
 
             <td>".$sub['privilegio_id']."</td>
             <td>
-            <a href=\"#modal-alert\" data-toggle=\"modal\"  onclick='showModal(\"editcategory\",".$sub['menu_id'].")'><button class=\"btn btn-success\">Restaurar <!--i class=\"icon-plus icon-white\"></i--></button></a></td>
+            <a class=hidden-print href='/mantenimiento?sub=menu&menu_id=".$sub['menu_id']."&fn=restore&parent_id=$parent_id'><button class=\"btn btn-success\">Restaurar <!--i class=\"icon-plus icon-white\"></i--></button></a></td>
             ";
 
             if (!$n_subs)
@@ -303,7 +303,7 @@ public function showAddListCategory($parent_id,$level=0,$menu_id=0) {
 public function showSecurityListCategory($parent_id,$level=0,$ul1=NULL,$ul2=null,$role_id=1) {
     //$level=0;
 
-    $query = "SELECT menu, menu_id FROM menu  WHERE  deleted=FALSE AND parent_id=".$parent_id." ORDER BY position";
+    $query = "SELECT menu, menu_id, privilegio_id,path_option FROM menu  WHERE  deleted=FALSE AND parent_id=".$parent_id." ORDER BY position";
     // $res = mysql_query($query) or die($query);
     $subs = $this->database->get_results($query);
     $cuantos=count ($subs);
@@ -317,20 +317,18 @@ public function showSecurityListCategory($parent_id,$level=0,$ul1=NULL,$ul2=null
         if ($level==0)
          {
 
-                $sub['menu']="<span class='label label-default'>".strtoupper($sub['menu'])."</span>";
+                //$sub['menu']="<span class='label label-default'>".strtoupper($sub['menu'])."</span>";
+
                 echo "<div class=\"form-group\" >
-                    <label class=\"control-label col-sm-4\" style='border-top:1px solid #cccccc'> ".$sub['menu']."</label>
+                    <label class=\"control-label col-sm-4\" style='border-top:1px solid #cccccc'> &nbsp;&nbsp;".$sub['menu']."
+                    ".$sub['privilegio_id']."</label>
                     <div class=\"col-sm-8\" style='border-top:1px solid #cccccc'>
-                        <div class=\"".$sub['menu_id']."\">
-                            <label>".$sub['menu_id']."</label>
+                        <div class=\""." ".$sub['menu_id'].$sub['menu_id']."\">
                             <label>    
-                                <input type=\"radio\" checked name=\"".$sub['menu_id']."\">Ocultar
+                                <input type=\"checkbox\"  name=\"".$sub['menu_id']."\">Mostrar &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
                             </label>
                             <label>
-                                <input type=\"radio\" name=\"".$sub['menu_id']."\">Leer/Escribir
-                            </label>
-                            <label>
-                                <input type=\"radio\" name=\"".$sub['menu_id']."\">Leer
+                            ".$sub['path_option']."
                             </label>
                         </div>
                     </div>
@@ -344,20 +342,15 @@ public function showSecurityListCategory($parent_id,$level=0,$ul1=NULL,$ul2=null
             list( $cuantos_subs ) = $this->database->get_row( $query2 );
         if ($cuantos_subs>0)
             {
-                $ul2="&nbsp;&nbsp;";
             echo "<div class=\"form-group\">
-                    <label class=\"control-label col-sm-4\" style='border-top:1px solid #cccccc'> ".$sub['menu']."=></label>
+                    <label class=\"control-label col-sm-4\" style='border-top:1px solid #cccccc'>  &nbsp;&nbsp;|-".$sub['menu']."=>
+                    ".$sub['privilegio_id']."</label>
                     <div class=\"col-sm-8\" style='border-top:1px solid #cccccc'>
                         <div class=\"".$sub['menu_id']."\">
-                        <label>".$sub['menu_id']."</label>
                             <label>
-                                <input type=\"radio\" checked name=\"".$sub['menu_id']."\">Ocultar
+                                <input type=\"checkbox\" checked name=\"".$sub['menu_id']."\">Mostrar &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
                             </label>
-                            <label>
-                                <input type=\"radio\" name=\"".$sub['menu_id']."\">Leer/Escribir
-                            </label>
-                            <label>
-                                <input type=\"radio\" name=\"".$sub['menu_id']."\">Leer
+                            <label>".$sub['path_option']."
                             </label>
                         </div>
                     </div>
@@ -366,20 +359,17 @@ public function showSecurityListCategory($parent_id,$level=0,$ul1=NULL,$ul2=null
         else
         {
             if ($sub['menu']<>"[div]"){
-            // $ul2.="&nbsp;&nbsp;";
             echo "<div class=\"form-group\">
-                    <label class=\"control-label col-sm-4\" style='border-top:1px solid #cccccc'>$ul2 ".ucfirst($sub['menu'])."</label>
+                    <label class=\"control-label col-sm-4\" style='border-top:1px solid #cccccc'> &nbsp;$ul2 |- ".ucfirst($sub['menu'])."
+                        ".$sub['privilegio_id']."</label>
+
                     <div class=\"col-sm-8\" style='border-top:1px solid #cccccc'>
                         <div class=\"".$sub['menu_id']."\">
-                        <label>".$sub['menu_id']."</label>
                             <label>
-                                <input type=\"radio\" checked name=\"".$sub['menu_id']."\">Ocultar
+                                <input type=\"checkbox\" checked name=\"".$sub['menu_id']."\">Mostrar &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 
                             </label>
                             <label>
-                                <input type=\"radio\" name=\"".$sub['menu_id']."\">Leer/Escribir
-                            </label>
-                            <label>
-                                <input type=\"radio\" name=\"".$sub['menu_id']."\">Leer
+                            ".$sub['path_option']."
                             </label>
                         </div>
                     </div>
@@ -391,8 +381,8 @@ public function showSecurityListCategory($parent_id,$level=0,$ul1=NULL,$ul2=null
         //if ($parent_id && $cuantos_subs==0) {$ul1.="&nbsp;&nbsp;";$ul2="&nbsp;&nbsp;&nbsp;&nbsp;";}
         $this->showSecurityListCategory($sub['menu_id'],$level+1,$ul1,$ul2,$role_id);
             if($cuantos_subs>0){
-                $ul2.="&nbsp;&nbsp;&nbsp;&nbsp;";
-                $ul1.="&nbsp;&nbsp;";
+                $ul2.="&nbsp;&nbsp;";
+                //$ul1.="&nbsp;&nbsp;";
             }
     }
 }
@@ -448,20 +438,41 @@ public function editCategory($parent_id,$menu_name,$path_option,$menu_id,$positi
 
 public function insertCategory($parent_id,$menu_name,$path_option){
 
-            echo $query = "SELECT privilegio_id from menu ORDER BY privilegio_id DESC limit 1";
-            list($lastPrivilegio_id)= $this->database->get_row($query);
+            // echo $query = "SELECT privilegio_id from menu ORDER BY privilegio_id DESC limit 1";
+            // list($lastPrivilegio_id)= $this->database->get_row($query);
+                    if ($menu_name){
                     $names = array(
                         'position' => 0,
                         'menu' => strtolower($menu_name),
                         'path_option' => $path_option,
                         'parent_id' =>  $parent_id,
-                        'privilegio_id' => $lastPrivilegio_id+1,
+                        'privilegio_id' => 0,
                         'deleted' => 0
                         );
                         
 
-                    if ($menu_name){
-                        $add_query = $this->database->insert( 'menu', $names );
+                    $add_query = $this->database->insert( 'menu', $names );
+                    $last_menu_id = $this->database->lastid();
+
+                    $privilegio = array(
+                        'privilegio' => $menu_name,
+                        'menu_id' => $last_menu_id,
+                        'privilegiotipo_id' => 1,
+                        'path_option' => $path_option
+                        );
+                    $add_query = $this->database->insert( 'privilegio', $privilegio );
+                    $last_privilegio_id = $this->database->lastid();
+
+                    $update = array(
+                        'privilegio_id' => $last_privilegio_id
+                        );
+                    //Add the WHERE clauses
+                    $where_clause = array(
+                        'menu_id' => $last_menu_id
+                        );
+                    $updated = $this->database->update( 'menu', $update, $where_clause, 1 );
+
+
                         return 11;
                     }
                     else
@@ -493,6 +504,31 @@ public function deleteCategory($menu_id){
 }
 
 
+public function restoreCategory($menu_id){
+
+    //Run a query to delete rows from table where id = 3 and name = Awesome, LIMIT 1
+    // $delete = array(
+    //     'menu_id' => $menu_id
+    // );
+    // $deleted = $this->database->delete( 'menu', $delete, 1 );
+
+
+
+    $update = array(
+            'deleted' => 0
+            );
+            //Add the WHERE clauses
+            $where_clause = array(
+                'menu_id' => $menu_id
+            );
+            $updated = $this->database->update( 'menu', $update, $where_clause, 1 );
+
+
+
+    return $m=15;
+}
+
+
 
 public function removeCategory($menu_id){
 
@@ -501,9 +537,47 @@ public function removeCategory($menu_id){
         'menu_id' => $menu_id
     );
     $deleted = $this->database->delete( 'menu', $delete, 1 );
+    $delete = array(
+        'menu_id' => $menu_id
+    );
+    $deleted = $this->database->delete( 'pivilegio', $delete, 1 );
 }
 
+public function setPrivilegio(){
+    $query = "SELECT * from menu ORDER BY menu_id";
+        $results = $this->database->get_results($query);
 
+    foreach ($results as $row) {
+        
+        $names = array(
+            'privilegiotipo_id' => 1,
+            'privilegio' => $row['menu'],
+            'path_option' => strtolower($row['path_option']),
+            'menu_id' => $row['menu_id']
+            );
+
+        $add_query = $this->database->insert( 'privilegio', $names );
+        $last_id = $this->database->lastid();
+        $update = array (
+            'privilegio_id'=>$last_id
+            );
+        //Add the WHERE clauses
+        $where_clause = array(
+            'menu_id' => $row['menu_id']
+            );
+        $updated = $this->database->update( 'menu', $update, $where_clause, 1 );
+
+
+
+
+
+
+
+       
+    }
+
+    
+}
 
 
 } // end class

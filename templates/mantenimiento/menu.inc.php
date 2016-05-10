@@ -24,7 +24,7 @@
                         <div class="block">
                            <br><br>
 
-<?php print_r($_SESSION['privilegios']) ?>
+<?php // print_r($_SESSION['privilegios']) ?>
 
 
                             <div class="block-content collapse in">
@@ -48,7 +48,7 @@
   									<table class="table table-striped">
 						              <thead>
 						                <tr>
-						                  <th>Menu_id ></th>
+						                  <th>Menu_id </th>
 						                  <th>Categoria</th>
 						                  <th>Ruta</th>
                               <th>Posicion</th>

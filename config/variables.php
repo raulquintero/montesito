@@ -24,9 +24,11 @@ $menuid_post  = isset ($_POST['menu_id'] ) ? $_POST['menu_id']  : NULL;
 $menuid_get  = isset ($_GET['menu_id'] ) ? $_GET['menu_id']  : NULL;	
 if ($menuid_post==NULL ) $menu_id=$menuid_get;  else  $menu_id=$menuid_post;
 if($menu_id==NULL) $menu_id=0;
+
 $fn_post  = isset ($_POST['fn'] ) ? $_POST['fn']  : NULL;	
 $fn_get  = isset ($_GET['fn'] ) ? $_GET['fn']  : NULL;	
 if ($fn_post==NULL ) $fn=$fn_get;  else  $fn=$fn_post;	
+
 $parentid_post  = isset ($_POST['parent_id'] ) ? $_POST['parent_id']  : NULL;	
 $parentid_get  = isset ($_GET['parent_id'] ) ? $_GET['parent_id']  : NULL;	
 if ($parentid_post==NULL ) $parent_id=$parentid_get;  else  $parent_id=$parentid_post;	

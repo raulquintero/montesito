@@ -72,6 +72,8 @@ class Login
     function Login()
 
     {
+        ini_set("session.cookie_lifetime","7200");
+        ini_set("session.gc_maxlifetime","7200");
 
             session_start();
 
@@ -269,20 +271,7 @@ class Login
             $user_pass=$this->setCrypt($user_pass);
 
             //echo  "SELECT * FROM"." ".$this->databaseUsersTable." "."WHERE username='$user_name' AND pass='$user_pass'";
-            if ($user_name=='admin')
-                {   
-                    $query="SELECT privilegio_id from menu";
-                    $results=$this->database->get_results($query);
-                    foreach ($results as $sub) 
-                    {
-                        $privilegios[]=$sub['privilegio_id'];
-                    }
-
-
-                }
-
-                else
-                    $privilegios = array(47,2,21,43,5,45,6,);
+           
            
 
 
@@ -300,7 +289,9 @@ class Login
                 $_SESSION['role']=$role;
                 $_SESSION['homepage']=$homepage;
                 // $_SESSION['store_id']=1;
-                $_SESSION['privilegios'] = $privilegios;
+                
+                $this->loadPrivilegios($user_name);
+                //$_SESSION['privilegios'] = $privilegios;
                 
                 // $_SESSION['sucursal']="Carranza";
 
@@ -326,6 +317,25 @@ class Login
 
     }
 
+
+public function loadPrivilegios($user_name){
+ if ($user_name=='admin')
+                {   
+                    $query="SELECT privilegio_id from privilegio";
+                    $results=$this->database->get_results($query);
+                    foreach ($results as $sub) 
+                    {
+                        $privilegios[]=$sub['privilegio_id'];
+                    }
+
+
+                }
+
+                else
+                    $privilegios = array(2,16,17,19,20,18,21);
+
+                $_SESSION['privilegios'] = $privilegios;
+}
 
 public function limpiar  ($str){
     return preg_replace("@([^a-zA-Z0-9\+\-\_\*\@\$\!\;\.\?\#\:\=\%\/\ ]+)@Ui", "", $str);
@@ -360,7 +370,7 @@ public function limpiar  ($str){
 
      */
 
-    public function unsetLoginSession()
+    public function logOut()
 
     {
 
@@ -384,7 +394,9 @@ public function limpiar  ($str){
             unset($_SESSION['register']);
 
         }
-        return $_SESSION['user_active'];
+
+
+        return 1;
 
     }
 

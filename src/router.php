@@ -9,9 +9,15 @@ $uri = getRuta($path);
 $uri = DIR_TEMPLATES.$uri;
 
 // $uri = $_SERVER['REQUEST_URI'];
+// print_r($_SESSION['privilegios']);
+	$login->loadPrivilegios($_SESSION['username']);
 
 if (!in_array(getPrivilegioId($topico,$database), $_SESSION['privilegios']) && $topico<>'/logout' && $topico<>'/'){
-	  $uri=DIR_TEMPLATES .'/error/sinprivilegios.inc.php';
+	 $uri= DIR_TEMPLATES . '/error/sinprivilegios.inc.php';
+	echo layout($login,$menu)['top_form'];
+	require_once $uri;
+	echo layout($login,$menu)['bottom'];
+	exit();
 	}
 	else
 switch ($path) {
@@ -19,7 +25,8 @@ switch ($path) {
 	 case '/api/show': 	$respuesta = funcion_respuesta(); $salida->showJson($respuesta); exit(); break;	
 	
 	case '/': 		$uri=$login->getHomePage(); $uri=encodeRuta($uri);	
-					echo $location="Location: /".$uri[1]."?sub=".$uri[2];
+					echo $location="Location: /".$uri[1];
+					if (isset($uri[2])) $location .= "?sub=".$uri[2];
 					break;
 	case '/mantenimiento/menu': 
 
@@ -43,6 +50,12 @@ switch ($path) {
 						if ( $menu_id){
 							$m=$menu->removeCategory($menu_id);
 							echo $location="Location: /mantenimiento?sub=menu&m=$m&menu_id=$parent_id";
+						}
+				case 'restore':
+						if ( $menu_id){
+							$m=$menu->restoreCategory($menu_id);
+							echo $location="Location: /mantenimiento?sub=menu&m=$m&menu_id=$parent_id";
+							
 						}
 					break;
 				
@@ -68,7 +81,10 @@ switch ($path) {
 			} exit();
 			break;
 	
-	case '/logout':				header("Location: /authmain.php?module=login&action=1"); break;
+	case '/logout':				
+			$login->logOut();
+			header("Location: /");
+			// header("Location: /authmain.php?module=login&action=1"); break;
 }
 
 
@@ -102,7 +118,6 @@ $existe = file_exists($uri);
 
 
 
-
 function getRuta($path){
 	$archivo = NULL;
 	$path = explode("/", $path);
@@ -129,7 +144,7 @@ function getPrivilegioId($path,$database){
 		$archivo=$path[1];
 		if(isset($path[2]))
 			$archivo .= '?sub='.$path[2];
-	$query="SELECT privilegio_id from menu where path_option='/$archivo'";
+	$query="SELECT privilegio_id from privilegio where path_option='/$archivo'";
 	list($privilegio_id) = $database->get_row($query);
 		return $privilegio_id;
 	}

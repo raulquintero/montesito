@@ -23,21 +23,42 @@
 										</div>
 							</div>
 									<br><br>
-							<div class="box-content">
 								<form action="#" method="POST" class='form-vertical'>
-									 
+							<div class="box-content">
+									
 									
 									
 											
-											<?php $menu->showSecurityListCategory(0,0,NULL,NULL,1);?>
+											<?php 
+											$query = "SELECT menu,menu_id,privilegio_id,path_option FROM menu WHERE parent_id=0 ORDER BY position";
+											$results=$database->get_results($query);
+											foreach ($results as $row) {
+                							$menu_name="<span class='label label-default'>".strtoupper($row['menu'])."</span>";
+                echo "<div class=\"form-group\" >
+                    <label class=\"control-label col-sm-4\" style='border-top:1px solid #cccccc'> ".$menu_name."
+                    ".$row['privilegio_id']." ".$row['menu_id']."</label>
+                    <div class=\"col-sm-8\" style='border-top:1px solid #cccccc'>
+                        <div class=\"".$row['menu_id']."\">
+                            <label>    
+                                <input type=\"checkbox\" checked name=\"".$row['menu_id']."\">Mostrar
+                            </label>
+                            <label>
+                            &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;".$row['path_option']."
+                            </label>
+                        </div>
+                    </div>
+                </div>  ";
+											$menu->showSecurityListCategory($row['menu_id'],0,NULL,NULL,1);
+											}
+											?>
 											
 									
 									<div class="form-actions">
 										<button type="submit" class="btn btn-primary">Save changes</button>
 										<button type="button" class="btn">Cancel</button>
 									</div>
-								</form>
 							</div>
+								</form>
 						</div>
 					</div>
 				</div>

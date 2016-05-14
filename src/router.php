@@ -2,6 +2,8 @@
 //	function funcion_respuesta(){  al final del archivo solo para pruebas
 
 
+
+
 $path = "/".$path;
 $path .= isset($sub) ? '/'.$sub : '';
 $topico=$path;
@@ -61,6 +63,51 @@ switch ($path) {
 				
 			}
 			break;
+
+	case '/administracion/categorias': 
+
+			switch ($fn) {
+				case 'add' :
+					$m = $Categorias->insertCategory($parent_id,$categoria_name, $tags);
+					echo $location="Location: /administracion?sub=categorias&m=$m&categoria_id=$parent_id";
+					break;
+				case 'edit':
+					// echo $parent_id." ".$id;	s				exit();
+					$m = $Categorias->editCategory($parent_id,$categoria_name,$tags,$categoria_id,$position);
+					echo $location="Location: /administracion?sub=categorias&m=$m&categoria_id=$parent_id";
+					break;
+
+				case 'delete':
+						if ( $categoria_id){
+							$m=$Categorias->deleteCategory($categoria_id);
+							echo $location="Location: /administracion?sub=categorias&m=$m&categoria_id=$parent_id";
+						}
+							break;
+				case 'remove':
+						if ( $categoria_id){
+							$m=$Categorias->removeCategory($categoria_id);
+							echo $location="Location: /administracion?sub=categorias&m=$m&categoria_id=$parent_id";
+						}
+				case 'restore':
+						if ( $categoria_id){
+							$m=$Categorias->restoreCategory($categoria_id);
+							echo $location="Location: /administracion?sub=categorias&m=$m&categoria_id=$parent_id";
+							
+						}
+					break;
+				
+			}
+			break;
+
+	case '/mantenimiento/formas': 
+
+			switch ($fn) {
+				case 'add' :
+					$m = $forma->insertForm($form_name, $path_option);
+					echo $location="Location: /mantenimiento?sub=formas";
+					break;
+			}
+			break;
 	
 	case '/formas/addcategory':
 			if ($sub) { 
@@ -80,7 +127,46 @@ switch ($path) {
 
 			} exit();
 			break;
+	case '/formas/addform':
+			if ($sub) { 
+					$uri= DIR_TEMPLATES . '/formas/'.$sub.'.form.php';
+					echo layout($login,$menu)['top_form'];
+					 require_once $uri;
+					echo layout($login,$menu)['bottom'];
+
+			} exit();
+			break;
+	case '/formas/editform':
+			if ($sub) { 
+					$uri= DIR_TEMPLATES . '/formas/'.$sub.'.form.php';
+					echo layout($login,$menu)['top_form'];
+					 require_once $uri;
+					echo layout($login,$menu)['bottom'];
+
+			} exit();
+			break;
+
 	
+	case '/formas/categoryproducts':
+			if ($formas) { 
+					$uri= DIR_TEMPLATES . '/formas/'.$sub.'/'.$formas.'.form.php';
+					echo layout($login,$menu)['top_form'];
+					 require_once $uri;
+					echo layout($login,$menu)['bottom'];
+			}			
+			exit();
+			break;
+
+	case '/formas/addperson':
+			if ($sub) { 
+					$uri= DIR_TEMPLATES . '/formas/'.$sub.'.form.php';
+					echo layout($login,$menu)['top_form'];
+					 require_once $uri;
+					echo layout($login,$menu)['bottom'];
+
+			} exit();
+			break;
+
 	case '/logout':				
 			$login->logOut();
 			header("Location: /");

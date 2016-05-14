@@ -1,6 +1,7 @@
 <?php
 
 
+$form_id=isset ($_GET['form_id']) ? $_GET['form_id'] : FALSE;
 $signin=isset ($_GET['signin']) ? clear_url($_GET['signin']) : FALSE;
 $path  = isset ($_GET['path'] ) ? $_GET['path'] : NULL;	
 $menu_id  = isset ($_GET['menu_id'] ) ? $_GET['menu_id'] : NULL;	
@@ -8,6 +9,8 @@ $menu_id  = isset ($_GET['menu_id'] ) ? $_GET['menu_id'] : NULL;
  $m  = isset ($_GET['m'] ) ? clear_url($_GET['m'] ) : NULL;	
 $sub = isset ($_GET['sub']) ? clear_url($_GET['sub']) : NULL;	
 $module = isset ($_GET['module']) ? clear_url($_GET['module']) : NULL;	
+$formas = isset ($_GET['formas']) ? clear_url($_GET['formas']) : NULL;	
+$id = isset ($_GET['id']) ? clear_url($_GET['id']) : NULL;	
 
 $action = isset ($_GET['action']) ? clear_url($_GET['action']) : NULL;	
 
@@ -25,6 +28,12 @@ $menuid_get  = isset ($_GET['menu_id'] ) ? $_GET['menu_id']  : NULL;
 if ($menuid_post==NULL ) $menu_id=$menuid_get;  else  $menu_id=$menuid_post;
 if($menu_id==NULL) $menu_id=0;
 
+// $categoria_id
+$categoriaid_post  = isset ($_POST['categoria_id'] ) ? $_POST['categoria_id']  : NULL;	
+$categoriaid_get  = isset ($_GET['categoria_id'] ) ? $_GET['categoria_id']  : NULL;	
+if ($categoriaid_post==NULL ) $categoria_id=$categoriaid_get;  else  $categoria_id=$categoriaid_post;
+if($categoria_id==NULL) $categoria_id=0;
+
 $fn_post  = isset ($_POST['fn'] ) ? $_POST['fn']  : NULL;	
 $fn_get  = isset ($_GET['fn'] ) ? $_GET['fn']  : NULL;	
 if ($fn_post==NULL ) $fn=$fn_get;  else  $fn=$fn_post;	
@@ -38,7 +47,11 @@ if ($parentid_post==NULL ) $parent_id=$parentid_get;  else  $parent_id=$parentid
 
 $menu_name  = isset ($_POST['menu_name'] ) ? $_POST['menu_name']  : NULL;	
 $path_option  = isset ($_POST['path_option'] ) ? $_POST['path_option']  : NULL;	
+$categoria_name  = isset ($_POST['categoria_name'] ) ? $_POST['categoria_name']  : NULL;	
+$tags  = isset ($_POST['tags'] ) ? $_POST['tags']  : NULL;	
 $position  = isset ($_POST['position'] ) ? $_POST['position']  : NULL;	
+$form_name  = isset ($_POST['form_name'] ) ? $_POST['form_name']  : NULL;	
+
 // $parent_id  = isset ($_POST['parent_id'] ) ? $_POST['parent_id']  : NULL;	
 
 

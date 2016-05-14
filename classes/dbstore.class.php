@@ -42,7 +42,7 @@
  All examples provided below assume that this class has been initiated
  Examples below assume the class has been iniated using $database = DB::getInstance();
 ********************************/
-class DB
+class DBSTORE
 {
     private $link = null;
     public $filter;
@@ -92,7 +92,7 @@ class DB
         //mb_regex_encoding( 'UTF-8' );
         mysqli_report( MYSQLI_REPORT_STRICT );
         try {
-            $this->link = new mysqli( DB_HOST, DB_USER, DB_PASS, DB_NAME );
+            $this->link = new mysqli( DBSTORE_HOST, DBSTORE_USER, DBSTORE_PASS, DBSTORE_NAME );
             $this->link->set_charset( "utf8" );
         } catch ( Exception $e ) {
             header("Location: /missingdatabase.html");

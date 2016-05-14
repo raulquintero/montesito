@@ -1,6 +1,7 @@
 <div class="row">
 	<div class="col-sm-12">
 		
+
 <!-- //inicio del despliegue de informacion -->
     <div class="box box-color box-bordered">
       <div class="box-title">

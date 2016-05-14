@@ -26,7 +26,8 @@
 													</a>
 													<ul class="dropdown-menu">
 														<li>
-															<a href="#">Agregar Persona</a>
+                        									<a href="#modal-alert" data-toggle="modal" onclick='showModal("addperson",0)'>Agregar Persona <i class="icon-plus icon-white"></i></a>
+															
 														</li>
 														<li>
 															<a href="#">Action 2</a>

@@ -587,7 +587,7 @@ return i;
 
     <div id=\"navigation\">
         <div class=\"container-fluid\">
-            <a href=\"#\" id=\"brand\">Boutique Esmeralda</a>
+            <a href=\"#\" id=\"brand\">Comecializadora de Mexicali</a>
             <a href=\"#\" class=\"toggle-nav\" rel=\"tooltip\" data-placement=\"bottom\" title=\"Toggle navigation\">
                 <i class=\"fa fa-bars\"></i>
             </a>

@@ -63,10 +63,11 @@ $menuleft = "
         </div>
         <ul class=\"subnav-menu\">
             <li class='dropdown'>
-                <a href=\"#\" data-toggle=\"dropdown\">Articles</a>
+                <a href=\"#\" data-toggle=\"dropdown\">Personas</a>
                 <ul class=\"dropdown-menu\">
                     <li>
-                        <a href=\"#\">Action #1</a>
+                        <a href=\"#modal-alert\" data-toggle=\"modal\" onclick='showModal(\"addperson\",0)'>Agregar Persona <i class=\"icon-plus icon-white\"></i></a>
+
                     </li>
                     <li>
                         <a href=\"#\">Antoher Link</a>

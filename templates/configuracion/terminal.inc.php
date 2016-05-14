@@ -50,9 +50,19 @@
 														</div>
 													</div>
 													<div class="form-group">
+														<label for="sucursal" class="control-label col-sm-2 right">Sucursal:</label>
+														<div class="col-sm-10">
+															<select name="s2" class='select2-me' style="width:250px;">
+																<option value="AF">00001</option>
+																<option value="AL">00002</option>
+																
+															</select>
+														</div>
+													</div>
+													<div class="form-group">
 														<label for="country" class="control-label col-sm-2 right">Role:</label>
 														<div class="col-sm-10">
-															<select name="s2" id="simg" class='select2-me' style="width:250px;">
+															<select name="s2" class='select2-me' style="width:250px;">
 																<option value="AF">Caja</option>
 																<option value="AL">Oficina</option>
 																<option value="DZ">Soporte</option>
@@ -79,6 +89,14 @@
 														<label for="email" class="control-label col-sm-2 right">IP Address:</label>
 														<div class="col-sm-10">
 															<input type="text" name="email" class='form-control' disabled value="<?php echo $_SERVER['REMOTE_ADDR'] ?> ">
+															
+														</div>
+													</div>
+
+													<div class="form-group">
+														<label for="email" class="control-label col-sm-2 right">Dominio:</label>
+														<div class="col-sm-10">
+															<input type="text" name="email" class='form-control' disabled value="<?php echo $_SERVER['HTTP_HOST'] ?> ">
 															
 														</div>
 													</div>
